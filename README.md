@@ -37,6 +37,7 @@ This project demonstrates enterprise-grade security practices including asymmetr
 ### Background Jobs: cron (inside container)
 
 ## Project Structure
+```
 bash 
 PKI-Based-2FA-Microservice/
 ├── app/
@@ -59,6 +60,7 @@ PKI-Based-2FA-Microservice/
 ├── .gitignore
 └── README.md
 
+```
 ## API Endpoints
 ### Decrypt Seed
 
