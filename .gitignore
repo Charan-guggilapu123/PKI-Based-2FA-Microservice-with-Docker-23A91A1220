@@ -1,0 +1,12 @@
+# Secrets
+*.pem
+encrypted_seed.txt
+decrypt_payload.json
+verify_payload.json
+
+# Python
+__pycache__/
+*.pyc
+
+# Docker
+*.log
