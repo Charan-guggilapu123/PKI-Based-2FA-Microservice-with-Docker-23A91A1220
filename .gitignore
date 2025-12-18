@@ -1,5 +1,6 @@
-# Secrets
-*.pem
+# Secrets  
+# Note: PEM files must be tracked for Docker build
+# *.pem - COMMENTED OUT to allow public keys to be committed
 encrypted_seed.txt
 decrypt_payload.json
 verify_payload.json
