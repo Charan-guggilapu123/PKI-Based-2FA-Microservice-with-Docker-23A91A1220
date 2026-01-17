@@ -1,7 +1,7 @@
 from cryptography.hazmat.primitives import hashes, serialization
 from cryptography.hazmat.primitives.asymmetric import padding
 
-commit_hash = "af91607ce7409659779915159166f9b28afa98f0"
+commit_hash = "d67e18303f22910144d6ddd0c8ecd2c2fb392448"
 
 with open("student_private.pem", "rb") as f:
     private_key = serialization.load_pem_private_key(

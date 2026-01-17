@@ -25,6 +25,7 @@ WORKDIR /app
 RUN apt-get update && apt-get install -y --no-install-recommends \
     cron \
     tzdata \
+    wget \
     && rm -rf /var/lib/apt/lists/*
 
 # Force UTC timezone
@@ -37,6 +38,7 @@ COPY --from=builder /install /usr/local
 # Copy application source
 COPY app ./app
 COPY scripts ./scripts
+COPY entrypoint.sh ./entrypoint.sh
 
 # Copy cron job
 COPY cron/2fa-cron /etc/cron.d/2fa-cron
@@ -54,9 +56,12 @@ RUN mkdir -p /data /cron \
 # (This is the CRITICAL FIX)
 # Fix Windows CRLF + set correct permissions
 RUN sed -i 's/\r$//' /etc/cron.d/2fa-cron \
-    && chmod 0644 /etc/cron.d/2fa-cron
+    && chmod 0644 /etc/cron.d/2fa-cron \
+    && chmod +x /app/entrypoint.sh
 
 EXPOSE 8080
 
-# Start API + cron
-CMD ["sh", "-c", "uvicorn app.main:app --host 0.0.0.0 --port 8080 & cron -f"]
+HEALTHCHECK --interval=30s --timeout=5s --retries=3 CMD wget -qO- http://localhost:8080/health || exit 1
+
+# Start API + cron via entrypoint
+CMD ["/app/entrypoint.sh"]

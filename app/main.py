@@ -48,3 +48,8 @@ def verify_2fa(req: CodeRequest):
 
     seed = DATA_PATH.read_text().strip()
     return {"valid": verify_totp(seed, req.code)}
+
+
+@app.get("/health")
+def health():
+    return {"status": "ok"}
